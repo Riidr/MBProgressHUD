@@ -110,7 +110,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.layer.allowsGroupOpacity = NO;
 
-    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
+    
     
     [self setupViews];
     [self updateIndicators];
@@ -119,7 +119,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 
 - (void)hudWasCancelled {
     if (self.mode != MBProgressHUDModeIndeterminate){
-        [self hideAnimated:NO afterDelay:0.5];
+        [self hideAnimated:YES];
     }
 }
 
@@ -338,6 +338,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     bezelView.alpha = 0.f;
     [self addSubview:bezelView];
     _bezelView = bezelView;
+    [_bezelView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
     [self updateBezelMotionEffects];
 
     UILabel *label = [UILabel new];
