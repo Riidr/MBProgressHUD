@@ -110,9 +110,17 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.layer.allowsGroupOpacity = NO;
 
+    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
+    
     [self setupViews];
     [self updateIndicators];
     [self registerForNotifications];
+}
+
+- (void)hudWasCancelled {
+    if (self.mode != MBProgressHUDModeIndeterminate){
+        [self hideAnimated:NO afterDelay:0.5];
+    }
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
